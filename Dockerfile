@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:latest
 
 LABEL maintainer="Stefan Schneider <eqsoft4@gmail.com>"
 

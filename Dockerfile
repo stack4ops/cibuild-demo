@@ -49,7 +49,6 @@ RUN <<EOF
 set -e
 echo root-ca.crt >> /etc/ca-certificates.conf
 echo signing-ca.crt >> /etc/ca-certificates.conf
-echo "test"
 update-ca-certificates
 EOF
 

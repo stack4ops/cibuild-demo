@@ -1,4 +1,5 @@
-variables:
+include:
+  - component: gitlab.hrz.uni-marburg.de/hrz/container-ci/cibuilder/component-cibuilder@v1
 
 workflow:
   rules:
@@ -25,19 +26,12 @@ workflow:
 
 stages:
   - all
-  
 all:
+  extends: .release
   stage: all
   variables:
     CIBUILD_RUN_CMD: all
-    CIBUILD_OUTPUT_DIR: "${CI_PROJECT_DIR}/cibuild-output"
-  before_script:
-    - mkdir -p "${CI_PROJECT_DIR}/cibuild-output"
-    - chmod 1777 "${CI_PROJECT_DIR}/cibuild-output"
   script:
     - /bin/true
-  artifacts:
-    paths:
-      - cibuild-output/
   tags:
     - cibuilder

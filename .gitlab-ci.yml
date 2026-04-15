@@ -30,7 +30,14 @@ all:
   stage: all
   variables:
     CIBUILD_RUN_CMD: all
+    CIBUILD_OUTPUT_DIR: "${CI_PROJECT_DIR}/cibuild-output"
+  before_script:
+    - mkdir -p "${CI_PROJECT_DIR}/cibuild-output"
+    - chmod 1777 "${CI_PROJECT_DIR}/cibuild-output"
   script:
     - /bin/true
+  artifacts:
+    paths:
+      - cibuild-output/
   tags:
     - cibuilder

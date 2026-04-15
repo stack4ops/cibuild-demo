@@ -13,7 +13,7 @@ workflow:
     # - if: $CI_PIPELINE_SOURCE == "schedule"
 
     # Create a pipline on every push commit
-    - if: $CI_PIPELINE_SOURCE == "push"
+    # - if: $CI_PIPELINE_SOURCE == "push"
 
     # Create a pipeline on merge_requests_event
     # - if: $CI_PIPELINE_SOURCE == "merge_request_event"

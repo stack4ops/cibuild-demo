@@ -1,5 +1,5 @@
 include:
-  - component: gitlab.hrz.uni-marburg.de/hrz/container-ci/cibuilder/component-cibuilder@v1
+  - component: $CI_SERVER_FQDN/hrz/container-ci/cibuilder/component-cibuilder@main
 
 workflow:
   rules:
@@ -27,7 +27,7 @@ workflow:
 stages:
   - all
 all:
-  extends: .release
+  extends: .supply-chain-artifacts
   stage: all
   variables:
     CIBUILD_RUN_CMD: all

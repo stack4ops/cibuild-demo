@@ -1,5 +1,5 @@
 include:
-  - component: $CI_SERVER_FQDN/hrz/container-ci/cibuilder/component-cibuilder@main
+  - component: $CI_SERVER_FQDN/hrz/container-ci/cibuilder/component-cibuilder/supply-chain-artifacts@main
 
 workflow:
   rules:

@@ -1,0 +1,13 @@
+[
+    {
+        "type": "log",
+        "entrypoint": "/bin/sh",
+        "cmd": ["-c", "echo testlog; sleep infinity"],
+        "assert": "testlog"
+    },
+    {
+        "type": "response",
+        "port": 80,
+        "assert": "Welcome to nginx"
+    }
+]

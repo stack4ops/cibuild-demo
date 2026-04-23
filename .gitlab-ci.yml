@@ -29,8 +29,6 @@ stages:
 all:
   extends: .supply-chain-artifacts
   stage: all
-  variables:
-    CIBUILDER_BIN_REF: nix
   script:
     - /bin/true
   tags:

@@ -1,6 +1,3 @@
-include:
-  - component: $CI_SERVER_FQDN/hrz/container-ci/cibuilder/component-cibuilder/supply-chain-artifacts@main
-
 workflow:
   rules:
     # Trigger rules:
@@ -23,6 +20,9 @@ workflow:
     # - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"
     #   when: never
     - when: never
+
+include:
+  - component: $CI_SERVER_FQDN/hrz/container-ci/cibuilder/component-cibuilder/supply-chain-artifacts@main
 
 stages:
   - all

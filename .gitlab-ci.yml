@@ -1,35 +1,27 @@
 workflow:
   rules:
-    # Trigger rules:
-    # The default CI_PIPELINE_SOURCE trigger is schedule
-    # Edit or comment in other trigger below
-
-    # Create a pipline on web "Run pipline"
     - if: $CI_PIPELINE_SOURCE == "web"
-
-    # Create a pipline on schedules
-    # - if: $CI_PIPELINE_SOURCE == "schedule"
-
-    # Create a pipline on every push commit
-    # - if: $CI_PIPELINE_SOURCE == "push"
-
-    # Create a pipeline on merge_requests_event
-    # - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-
-    # Example: Create pipeline on every push on every branch except main branch
-    # - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"
-    #   when: never
     - when: never
-
-include:
-  - component: $CI_SERVER_FQDN/hrz/container-ci/cibuilder/component-cibuilder/supply-chain-artifacts@main
 
 stages:
   - all
+
 all:
-  extends: .supply-chain-artifacts
   stage: all
   script:
     - /bin/true
+  after_script:
+    - |
+      for file in sbom-linux-amd64.spdx.json sbom-linux-amd64.cdx.json \
+                  sbom-linux-arm64.spdx.json sbom-linux-arm64.cdx.json \
+                  vuln-linux-amd64.json vuln-linux-arm64.json \
+                  provenance-linux-amd64.slsa.json provenance-linux-arm64.slsa.json \
+                  digests.json cert.json; do
+        [ -f "./cibuild-output/${file}" ] || continue
+        curl --silent --fail \
+          --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+          --upload-file "./cibuild-output/${file}" \
+          "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/supply-chain/${CI_COMMIT_REF_NAME}/${file}"
+      done
   tags:
     - cibuilderdev

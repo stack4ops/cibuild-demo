@@ -10,7 +10,17 @@ all:
   stage: all
   script:
     - /bin/true
-  after_script:
+  artifacts:
+    paths:
+      - cibuild-output/
+    expire_in: 1 hour
+  tags:
+    - cibuilderdev
+
+upload-supply-chain-artifacts:
+  stage: .post
+  image: registry.hrz.uni-marburg.de/dockerio-cache/library/alpine:latest
+  script:
     - |
       for file in sbom-linux-amd64.spdx.json sbom-linux-amd64.cdx.json \
                   sbom-linux-arm64.spdx.json sbom-linux-arm64.cdx.json \

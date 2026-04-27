@@ -9,6 +9,8 @@ Repo for demonstrating various config settings for cibuild lib in Multi-CI envir
 
 The build is triggered by manual web workflow.
 
+The Documentation can be found hier: https://gitlab.hrz.uni-marburg.de/hrz/container-ci/cibuilder/cibuild-demo/-/wikis/Dokumentation
+
 ## 🔐 Supply Chain Security
 
 This container image is secured using Sigstore:

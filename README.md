@@ -2,8 +2,7 @@
 
 This repository demonstrates end-to-end cryptographic supply chain security across two independent signing scopes, each anchored to a distinct Git commit.
 
-### Overview of the two-commit architecture
-![two-commit architecture](docs/signing-scopes.svg).
+For an overview of the two-commit architecture see [`docs/signing-scopes.svg`](docs/signing-scopes.svg).
 
 ---
 
@@ -44,7 +43,7 @@ cosign verify \
 
 #### Why the signature is non-negotiable
 
-Without the Scope 1 signature, attestations (SBOM, Provenance) are unbound — they describe *a* build environment but are not cryptographically tied to *the* image that was actually produced. An attacker with write access to the registry or attestation store could push a different image and attach a plausible but forged SBOM and Provenance to it. The Scope 1 signature closes this gap: the digest, the lock commit, and `cosign.pub` form a triangle that cannot be forged without the private key.
+Without the Scope 1 signature, attestations (SBOM, Provenance) are unbound — they describe *a* build environment but are not cryptographically tied to *the* image that was actually produced. Because only digests from the artifact lock file are consumed (never tags), an attacker cannot substitute a different image. However, with write access to the attestation store they could attach a forged SBOM or Provenance to the correct digest — same image, fabricated context — and compliance tools that only inspect attestations without verifying the signature would pass it. The Scope 1 signature closes this gap: the digest, the lock commit, and `cosign.pub` form a triangle that cannot be forged without the private key.
 
 ---
 

@@ -78,17 +78,13 @@
   <!-- Threat model -->
   <rect x="28" y="510" width="624" height="110" rx="10" fill="#fcebeb" stroke="#a32d2d" stroke-width="0.8"/>
   <text class="tm" x="340" y="532" text-anchor="middle" dominant-baseline="central" fill="#501313">Without Scope 1 signature — attack surface</text>
-  <rect x="48" y="550" width="148" height="52" rx="8" fill="#f7c1c1" stroke="#a32d2d" stroke-width="0.5"/>
-  <text class="th" x="122" y="568" text-anchor="middle" dominant-baseline="central" fill="#501313">Attacker</text>
-  <text class="ts" x="122" y="584" text-anchor="middle" dominant-baseline="central" fill="#a32d2d">swaps attestations</text>
-  <rect x="228" y="550" width="148" height="52" rx="8" fill="#f7c1c1" stroke="#a32d2d" stroke-width="0.5"/>
-  <text class="th" x="302" y="568" text-anchor="middle" dominant-baseline="central" fill="#501313">Unsigned image</text>
-  <text class="ts" x="302" y="584" text-anchor="middle" dominant-baseline="central" fill="#a32d2d">different digest</text>
-  <rect x="408" y="550" width="224" height="52" rx="8" fill="#f7c1c1" stroke="#a32d2d" stroke-width="0.5"/>
-  <text class="th" x="520" y="568" text-anchor="middle" dominant-baseline="central" fill="#501313">Forged SBOM / Provenance</text>
-  <text class="ts" x="520" y="584" text-anchor="middle" dominant-baseline="central" fill="#a32d2d">plausible but unbound</text>
-  <line x1="196" y1="576" x2="228" y2="576" stroke="#a32d2d" stroke-width="1" fill="none" marker-end="url(#arrow-red)"/>
-  <line x1="376" y1="576" x2="408" y2="576" stroke="#a32d2d" stroke-width="1" fill="none" marker-end="url(#arrow-red)"/>
+  <rect x="48" y="550" width="180" height="52" rx="8" fill="#f7c1c1" stroke="#a32d2d" stroke-width="0.5"/>
+  <text class="th" x="138" y="568" text-anchor="middle" dominant-baseline="central" fill="#501313">Attacker</text>
+  <text class="ts" x="138" y="584" text-anchor="middle" dominant-baseline="central" fill="#a32d2d">same digest, forged context</text>
+  <rect x="256" y="550" width="376" height="52" rx="8" fill="#f7c1c1" stroke="#a32d2d" stroke-width="0.5"/>
+  <text class="th" x="444" y="568" text-anchor="middle" dominant-baseline="central" fill="#501313">Forged SBOM / Provenance</text>
+  <text class="ts" x="444" y="584" text-anchor="middle" dominant-baseline="central" fill="#a32d2d">plausible but unbound · digest unchanged · no signature to break</text>
+  <line x1="228" y1="576" x2="256" y2="576" stroke="#a32d2d" stroke-width="1" fill="none" marker-end="url(#arrow-red)"/>
 
   <!-- Release gate -->
   <rect x="220" y="660" width="240" height="52" rx="10" fill="#eaf3de" stroke="#3b6d11" stroke-width="1"/>

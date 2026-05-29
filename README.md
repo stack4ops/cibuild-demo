@@ -2,9 +2,7 @@
 
 This repository demonstrates end-to-end cryptographic supply chain security across two independent signing scopes, each anchored to a distinct Git commit.
 
-overview of the two-commit architectur:
-
-![two-commits architecture](docs/signing-scopes.svg)
+For an overview of the two-commit architecture see [`docs/signing-scopes.svg`](docs/signing-scopes.svg).
 
 ---
 
@@ -27,6 +25,8 @@ This decoupling is intentional: the two commits are independently verifiable and
 ![Scope 1 – Continuous Verification Chain](docs/scope1-verification-chain.svg)
 
 Platform Images are not referenced by mutable tags at build time. Instead, the pipeline resolves their exact SHA digests and pins them in cryptographically bound **artifact lock files**. The pipeline then writes an **Artifact Lock Commit** which becomes the anchor for Scope 1.
+
+At build time, a CycloneDX SBOM and SLSA L2 provenance attestation are attached to each Platform Image via the **OCI Referrers API** (`CIBUILD_BUILD_SBOM=1`, `CIBUILD_BUILD_PROVENANCE=1`). These attestations are immutably linked to the Platform Image digest and remain unchanged through all subsequent pipeline stages and the release.
 
 > **Important:** Scope 1 verification always uses the digest from the artifact lock file — never a tag. No tag exists at this point. The tag is created for the first time in Scope 2 during the release.
 
@@ -53,17 +53,15 @@ Without the Scope 1 signature, attestations (SBOM, Provenance) are unbound — t
 
 The release stage runs only after all Scope 1 verifications have passed. It creates the multi-arch image tag **for the first time** and signs it with Cosign, embedding the Build Trigger Commit via the OCI annotation `org.opencontainers.image.revision`.
 
-**The release image is not a new build artifact.** It is an OCI index manifest that references the already-signed Platform Images by digest — pure OCI links within the registry, no layers are copied or rebuilt. The Scope 1 signatures, SBOM, and Provenance attestations remain attached to the Platform Images unchanged. The release manifest inherits them through the OCI reference chain.
+**The release image is not a new build artifact.** It is an OCI index manifest that references the already-signed Platform Images by digest — pure OCI links within the registry, no layers are copied or rebuilt. The Scope 1 signatures, SBOM, and Provenance attestations remain attached to the Platform Images unchanged; they were linked at build time via the OCI Referrers API and are not modified or re-attached during the release.
 
-Two signing modes are supported:
+Two signing modes are supported for the release manifest:
 
 **2a — Keyless (default)**
 Signing is performed via a short-lived OIDC certificate issued by the Sigstore trust bundle. The Build Trigger Commit is recorded as a publicly auditable entry in the Rekor transparency log.
 
 **2b — Key-mode (private infrastructure)**
 For environments without public Rekor access, key-based signing is used instead (`CIBUILD_RELEASE_COSIGN_SIGNING_MODE=key`). The private key is provisioned via `CIBUILD_RELEASE_COSIGN_PRIVATE_KEY` (base64-encoded). The public key `cosign.pub` is committed to the repository.
-
-In both modes, a CycloneDX SBOM and SLSA L2 provenance attestation are attached to the release manifest.
 
 ```bash
 cosign verify \

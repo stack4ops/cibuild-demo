@@ -2,7 +2,8 @@
 
 This repository demonstrates end-to-end cryptographic supply chain security across two independent signing scopes, each anchored to a distinct Git commit.
 
-For an overview of the two-commit architecture see [`docs/signing-scopes.svg`](docs/signing-scopes.svg).
+### Overview of the two-commit architecture
+![two-commit architecture](docs/signing-scopes.svg).
 
 ---
 

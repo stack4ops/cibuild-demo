@@ -5,12 +5,12 @@
   "build_tag": "web-workflow",
   "image_digest": "sha256:d13d052f55054448e7597de7792970d98a176f2109813371c887a31f6187f197",
   "referrers": {
-    "sbom": "sha256:645c652c2b0c179be17389ad4c2094e465feb86bfa4f00e181979484165f592e",
-    "vuln": "sha256:518ca47d38bf966c23302221a0e4f319e617a987a48c3ff4345c02e10f2af784",
-    "provenance": "sha256:524400d7fa2de2face09df93a6601b040c9e5e9fc2c3993e86578c3cf4abe46d"
+    "sbom": "sha256:3fc217d5636b18b0aa64b90b4164777c226e8da1375fabb74add4e3d0ee6153b",
+    "vuln": "sha256:42c7b395e4354267a06e177b68f832944c2392503dd62922a663a76851aaa5cf",
+    "provenance": "sha256:a86c49b50f27292a2417a2dce966818e1c5fa628514e582c2846371410c1cdf6"
   },
   "image_sig": "",
   "build_client": "buildctl",
-  "source_commit": "9f46d50386c45ae9635803e7230693e1167cddcb",
-  "built_at": "2026-05-29T13:03:51Z"
+  "source_commit": "b63938a99307524d6e9e24a3531efd9455b65c47",
+  "built_at": "2026-05-29T13:09:18Z"
 }

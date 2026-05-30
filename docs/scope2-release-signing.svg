@@ -38,52 +38,38 @@
   <text class="tl" x="44" y="228" dominant-baseline="central" font-weight="600" fill="#5f5e5a">OCI Registry — pure manifest references, no data copied</text>
 
   <!-- Platform Image amd64 -->
-  <rect x="44" y="244" width="180" height="148" rx="8" fill="#e1f5ee" stroke="#0f6e56" stroke-width="0.8"/>
-  <text class="th" x="134" y="264" text-anchor="middle" dominant-baseline="central" fill="#085041">Platform Image</text>
-  <text class="ts" x="134" y="282" text-anchor="middle" dominant-baseline="central" fill="#0f6e56">linux/amd64</text>
-  <text class="tl" x="134" y="298" text-anchor="middle" dominant-baseline="central">sha256:a1b2…</text>
-  <rect x="56" y="308" width="156" height="28" rx="5" fill="#9fe1cb" stroke="#0f6e56" stroke-width="0.4"/>
-  <text class="tl" x="134" y="322" text-anchor="middle" dominant-baseline="central" fill="#085041" font-weight="600">Scope 1 Signature</text>
-  <rect x="56" y="342" width="72" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
-  <text class="tl" x="92" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">SBOM</text>
-  <rect x="136" y="342" width="76" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
-  <text class="tl" x="174" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">Provenance</text>
+  <rect x="120" y="244" width="180" height="148" rx="8" fill="#e1f5ee" stroke="#0f6e56" stroke-width="0.8"/>
+  <text class="th" x="210" y="264" text-anchor="middle" dominant-baseline="central" fill="#085041">Platform Image</text>
+  <text class="ts" x="210" y="282" text-anchor="middle" dominant-baseline="central" fill="#0f6e56">linux/amd64</text>
+  <text class="tl" x="210" y="298" text-anchor="middle" dominant-baseline="central">sha256:a1b2…</text>
+  <rect x="132" y="308" width="156" height="28" rx="5" fill="#9fe1cb" stroke="#0f6e56" stroke-width="0.4"/>
+  <text class="tl" x="210" y="322" text-anchor="middle" dominant-baseline="central" fill="#085041" font-weight="600">Scope 1 Signature</text>
+  <rect x="132" y="342" width="72" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
+  <text class="tl" x="168" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">SBOM</text>
+  <rect x="212" y="342" width="76" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
+  <text class="tl" x="250" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">Provenance</text>
 
   <!-- Platform Image arm64 -->
-  <rect x="250" y="244" width="180" height="148" rx="8" fill="#e1f5ee" stroke="#0f6e56" stroke-width="0.8"/>
-  <text class="th" x="340" y="264" text-anchor="middle" dominant-baseline="central" fill="#085041">Platform Image</text>
-  <text class="ts" x="340" y="282" text-anchor="middle" dominant-baseline="central" fill="#0f6e56">linux/arm64</text>
-  <text class="tl" x="340" y="298" text-anchor="middle" dominant-baseline="central">sha256:c3d4…</text>
-  <rect x="262" y="308" width="156" height="28" rx="5" fill="#9fe1cb" stroke="#0f6e56" stroke-width="0.4"/>
-  <text class="tl" x="340" y="322" text-anchor="middle" dominant-baseline="central" fill="#085041" font-weight="600">Scope 1 Signature</text>
-  <rect x="262" y="342" width="72" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
-  <text class="tl" x="298" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">SBOM</text>
-  <rect x="342" y="342" width="76" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
-  <text class="tl" x="380" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">Provenance</text>
-
-  <!-- Platform Image arm/v7 -->
-  <rect x="456" y="244" width="180" height="148" rx="8" fill="#e1f5ee" stroke="#0f6e56" stroke-width="0.8"/>
-  <text class="th" x="546" y="264" text-anchor="middle" dominant-baseline="central" fill="#085041">Platform Image</text>
-  <text class="ts" x="546" y="282" text-anchor="middle" dominant-baseline="central" fill="#0f6e56">linux/arm/v7</text>
-  <text class="tl" x="546" y="298" text-anchor="middle" dominant-baseline="central">sha256:e5f6…</text>
-  <rect x="468" y="308" width="156" height="28" rx="5" fill="#9fe1cb" stroke="#0f6e56" stroke-width="0.4"/>
-  <text class="tl" x="546" y="322" text-anchor="middle" dominant-baseline="central" fill="#085041" font-weight="600">Scope 1 Signature</text>
-  <rect x="468" y="342" width="72" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
-  <text class="tl" x="504" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">SBOM</text>
-  <rect x="548" y="342" width="76" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
-  <text class="tl" x="586" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">Provenance</text>
+  <rect x="380" y="244" width="180" height="148" rx="8" fill="#e1f5ee" stroke="#0f6e56" stroke-width="0.8"/>
+  <text class="th" x="470" y="264" text-anchor="middle" dominant-baseline="central" fill="#085041">Platform Image</text>
+  <text class="ts" x="470" y="282" text-anchor="middle" dominant-baseline="central" fill="#0f6e56">linux/arm64</text>
+  <text class="tl" x="470" y="298" text-anchor="middle" dominant-baseline="central">sha256:c3d4…</text>
+  <rect x="392" y="308" width="156" height="28" rx="5" fill="#9fe1cb" stroke="#0f6e56" stroke-width="0.4"/>
+  <text class="tl" x="470" y="322" text-anchor="middle" dominant-baseline="central" fill="#085041" font-weight="600">Scope 1 Signature</text>
+  <rect x="392" y="342" width="72" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
+  <text class="tl" x="428" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">SBOM</text>
+  <rect x="472" y="342" width="76" height="26" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.4"/>
+  <text class="tl" x="510" y="355" text-anchor="middle" dominant-baseline="central" fill="#173404">Provenance</text>
 
   <!-- OCI referrers note -->
   <rect x="44" y="402" width="576" height="28" rx="6" fill="#eaf3de" stroke="#3b6d11" stroke-width="0.4"/>
   <text class="tl" x="332" y="416" text-anchor="middle" dominant-baseline="central" font-weight="600" fill="#173404">SBOM + Provenance attached at build time via OCI Referrers API — unchanged at release</text>
 
   <!-- OCI digest reference arrows -->
-  <line x1="210" y1="164" x2="134" y2="244" stroke="#854f0b" stroke-width="1.2" stroke-dasharray="3 3" fill="none" marker-end="url(#arrow)"/>
-  <line x1="340" y1="164" x2="340" y2="244" stroke="#854f0b" stroke-width="1.2" stroke-dasharray="3 3" fill="none" marker-end="url(#arrow)"/>
-  <line x1="470" y1="164" x2="546" y2="244" stroke="#854f0b" stroke-width="1.2" stroke-dasharray="3 3" fill="none" marker-end="url(#arrow)"/>
-  <text class="tl" x="158" y="200" text-anchor="middle" dominant-baseline="central">ref@sha256:a1b2…</text>
-  <text class="tl" x="340" y="200" text-anchor="middle" dominant-baseline="central">ref@sha256:c3d4…</text>
-  <text class="tl" x="516" y="200" text-anchor="middle" dominant-baseline="central">ref@sha256:e5f6…</text>
+  <line x1="300" y1="164" x2="210" y2="244" stroke="#854f0b" stroke-width="1.2" stroke-dasharray="3 3" fill="none" marker-end="url(#arrow)"/>
+  <line x1="380" y1="164" x2="470" y2="244" stroke="#854f0b" stroke-width="1.2" stroke-dasharray="3 3" fill="none" marker-end="url(#arrow)"/>
+  <text class="tl" x="232" y="200" text-anchor="middle" dominant-baseline="central">ref@sha256:a1b2…</text>
+  <text class="tl" x="448" y="200" text-anchor="middle" dominant-baseline="central">ref@sha256:c3d4…</text>
 
   <!-- Verification -->
   <rect x="160" y="458" width="360" height="52" rx="8" fill="#eaf3de" stroke="#3b6d11" stroke-width="0.8"/>

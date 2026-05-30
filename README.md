@@ -1,39 +1,22 @@
 ## 🔐 Supply Chain Security
 
-This repository demonstrates end-to-end cryptographic supply chain security across two independent signing scopes, each anchored to a distinct Git commit.
+This repository demonstrates end-to-end cryptographic supply chain security for container images, built on digest-addressed artifacts and Cosign signatures.
 
-### Overview of the two-commit architecture
-![two-commit architecture](docs/signing-scopes.svg).
-
----
-
-### Two commits, two cryptographic anchors
-
-The architecture intentionally separates two concerns that are often conflated: **what triggered the build** and **which exact images were used**.
-
-**Build Trigger Commit** (`6b7792e4…`)
-The commit that caused the pipeline to run — a push, a Renovate MR, a manual trigger, or a scheduled release. This commit is embedded in the release image signature via the OCI annotation `org.opencontainers.image.revision`. It answers the question: *why was this image built?*
-
-**Artifact Lock Commit** (`a3f19c72…`)
-A commit written by the pipeline itself, after it has resolved the exact SHA digests of all Platform Images. It records the artifact lock files in the repository and becomes the cryptographic anchor for Scope 1. It answers the question: *what was this image built from?*
-
-This decoupling is intentional: the two commits are independently verifiable and serve different audit purposes.
+> **Infrastructure requirement:** The verification model relies on the OCI 1.1 Referrers API. It assumes an OCI 1.1-compliant registry with Referrers support (reference implementation: [Zot](https://zotregistry.dev)).
 
 ---
 
 ### Scope 1 — Platform Image Integrity
 
-![Scope 1 – Continuous Verification Chain](docs/scope1-verification-chain.svg)
+![Scope 1 – Platform Image Integrity](docs/scope1-platform-integrity.svg)
 
-Platform Images are not referenced by mutable tags at build time. Instead, the pipeline resolves their exact SHA digests and pins them in cryptographically bound **artifact lock files**. The pipeline then writes an **Artifact Lock Commit** which becomes the anchor for Scope 1.
+A build is triggered by a Renovate MR, a commit, or a manual run. The pipeline resolves the exact SHA digests of all Platform Images and pins them in an **artifact-lock** file. These digests — never tags — are what every subsequent step consumes.
 
-At build time, a CycloneDX SBOM and SLSA L2 provenance attestation are attached to each Platform Image via the **OCI Referrers API** (`CIBUILD_BUILD_SBOM=1`, `CIBUILD_BUILD_PROVENANCE=1`). These attestations are immutably linked to the Platform Image digest and remain unchanged through all subsequent pipeline stages and the release.
-
-> **Important:** Scope 1 verification always uses the digest from the artifact lock file — never a tag. No tag exists at this point. The tag is created for the first time in Scope 2 during the release.
+**The security core is the signature over the digests.** The pinned Platform Image digests are signed against `cosign.pub`. This binds *digest ↔ signature*: the integrity guarantee rests on the signed digest set, not on any mutable reference.
 
 #### Continuous re-verification
 
-The Scope 1 signature is not a one-time event. Every subsequent pipeline stage (Test, Release) is required to re-verify it before proceeding — using the digest from the artifact lock file, not a tag. External governance tools such as [DevGuard](https://devguard.io) perform the same verification and act as a release gate independently, without access to pipeline internals:
+The signature is not a one-time event. Every pipeline stage (Test, Release) re-verifies it before proceeding, using the digest from the artifact-lock — no stage inherits trust from a previous one. External governance tools such as [DevGuard](https://devguard.io) perform the same verification independently and gate the release, without needing access to pipeline internals:
 
 ```bash
 cosign verify \
@@ -42,9 +25,15 @@ cosign verify \
   registry.hrz.uni-marburg.de/cibuilder/cibuild-demo@sha256:<digest>
 ```
 
+Because verification is keyed only to the digest, it works at any time, from anywhere, with any `cosign verify`-capable tool.
+
 #### Why the signature is non-negotiable
 
-Without the Scope 1 signature, attestations (SBOM, Provenance) are unbound — they describe *a* build environment but are not cryptographically tied to *the* image that was actually produced. Because only digests from the artifact lock file are consumed (never tags), an attacker cannot substitute a different image. However, with write access to the attestation store they could attach a forged SBOM or Provenance to the correct digest — same image, fabricated context — and compliance tools that only inspect attestations without verifying the signature would pass it. The Scope 1 signature closes this gap: the digest, the lock commit, and `cosign.pub` form a triangle that cannot be forged without the private key.
+Since only digests are consumed and never tags, the Platform Image itself cannot be substituted. The remaining attack surface is forging an *attestation* (SBOM, Provenance) against the correct digest — a plausible but fabricated description of the build. Without a signature there is nothing whose failure would reveal the forgery; compliance tools that inspect attestations without verifying a signature would accept it. The signature closes this gap: the attestation is only trusted if it verifies against `cosign.pub`.
+
+#### Note: VCS self-attestation
+
+The signed metadata carries `org.opencontainers.image.revision`, binding the signature back to the originating VCS revision. This is a self-attested audit aid — the pipeline's own statement about the source state it built from — not an externally verified anchor. It is comparable to build provenance: an honest self-report, here at the pipeline/VCS level.
 
 ---
 
@@ -52,17 +41,15 @@ Without the Scope 1 signature, attestations (SBOM, Provenance) are unbound — t
 
 ![Scope 2 – Release Signing](docs/scope2-release-signing.svg)
 
-The release stage runs only after all Scope 1 verifications have passed. It creates the multi-arch image tag **for the first time** and signs it with Cosign, embedding the Build Trigger Commit via the OCI annotation `org.opencontainers.image.revision`.
+The release stage runs only after all Scope 1 verifications have passed. It creates the multi-arch image tag **for the first time** and signs it with Cosign.
 
-**The release image is not a new build artifact.** It is an OCI index manifest that references the already-signed Platform Images by digest — pure OCI links within the registry, no layers are copied or rebuilt. The Scope 1 signatures, SBOM, and Provenance attestations remain attached to the Platform Images unchanged; they were linked at build time via the OCI Referrers API and are not modified or re-attached during the release.
+**The release image is not a new build artifact.** It is an OCI index manifest that references the already-signed Platform Images by digest — pure OCI links within the registry, no layers are copied or rebuilt. The SBOM and Provenance attestations are attached to the Platform Images at build time via the OCI Referrers API (`CIBUILD_BUILD_SBOM=1`, `CIBUILD_BUILD_PROVENANCE=1`) and remain unchanged; they are not re-attached during the release.
 
 Two signing modes are supported for the release manifest:
 
-**2a — Keyless (default)**
-Signing is performed via a short-lived OIDC certificate issued by the Sigstore trust bundle. The Build Trigger Commit is recorded as a publicly auditable entry in the Rekor transparency log.
+**Keyless (default)** — signing via a short-lived OIDC certificate from the Sigstore trust bundle, with the signature recorded in the public Rekor transparency log.
 
-**2b — Key-mode (private infrastructure)**
-For environments without public Rekor access, key-based signing is used instead (`CIBUILD_RELEASE_COSIGN_SIGNING_MODE=key`). The private key is provisioned via `CIBUILD_RELEASE_COSIGN_PRIVATE_KEY` (base64-encoded). The public key `cosign.pub` is committed to the repository.
+**Key-mode (private infrastructure)** — for environments without public Rekor access, key-based signing is used (`CIBUILD_RELEASE_COSIGN_SIGNING_MODE=key`). The private key is provisioned via `CIBUILD_RELEASE_COSIGN_PRIVATE_KEY` (base64-encoded); the public key `cosign.pub` is committed to the repository.
 
 ```bash
 cosign verify \

@@ -1,0 +1,15 @@
+{
+  "platform": "linux/arm64",
+  "platform_name": "linux-arm64",
+  "image": "registry.hrz.uni-marburg.de/cibuilder/cibuild-demo",
+  "build_tag": "web-workflow",
+  "image_digest": "sha256:e196df05b03deb18119dbbabe549a442df18f8f6814ab4afd5c44f454dc2654a",
+  "referrers": {
+    "sbom": "sha256:0e6c9cd51955d658610e65b671ecdf85dd98ec61e7e031909f868cb1631a856a",
+    "vuln": "sha256:5922259132c5fb5931eceaf515eb9e7d512c030cb488836baf665046be5e7ee0",
+    "provenance": "sha256:a0095952bf8fca37451c99c09d0d6b773d0d678a27b758832420fd02e8904139"
+  },
+  "build_client": "buildctl",
+  "source_commit": "16b0b5ce09610f75414f1f4d3719fae5ad18bd9b",
+  "built_at": "2026-05-30T13:33:07Z"
+}

@@ -24,5 +24,5 @@ jobs:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder-dind@v1
         with:
-          run_cmd: all
+          run_cmd: test
           bin_ref: main

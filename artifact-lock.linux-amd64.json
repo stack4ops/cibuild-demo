@@ -1,15 +1,15 @@
 {
   "platform": "linux/amd64",
   "platform_name": "linux-amd64",
-  "image": "registry.hrz.uni-marburg.de/cibuilder/cibuild-demo",
+  "image": "ghcr.io/stack4ops/cibuild-demo",
   "build_tag": "web-workflow",
-  "image_digest": "sha256:d13d052f55054448e7597de7792970d98a176f2109813371c887a31f6187f197",
+  "image_digest": "sha256:a2990a746db3c2bf990d74e6ddf55bef7256c2929d7caa352e3ec219ffa54496",
   "referrers": {
-    "sbom": "sha256:5bb7b66c14a9a0259258c7219635198f2eeeb34f4aae6c1e5bdb0bb929be7aa3",
-    "vuln": "sha256:295f63da86c92d793de786d4cabb9712dd0489648a88fba0c93031af45e359ea",
-    "provenance": "sha256:c1d082e3b10caf151947aa98f87abeaca3429fceb3b0752b6daac6ff8f51e245"
+    "sbom": "sha256:6df7ed28aca1422edead315db582127e073278898079844f054b3dca129feeee",
+    "vuln": "sha256:f1e369f708909543b20a1cbd876bca994b98b93b5df47df514ea0c258ae9acb5",
+    "provenance": "sha256:7c0bd4caef1a55976377c578bf3296e8f9a63c2bac6a966c3de3925ba50b1f37"
   },
   "build_client": "buildctl",
-  "source_commit": "16b0b5ce09610f75414f1f4d3719fae5ad18bd9b",
-  "built_at": "2026-05-30T13:29:44Z"
+  "source_commit": "251fb9fc61d516831a3f0a0e81fb5e9bf6a22dd5",
+  "built_at": "2026-06-03T15:47:50Z"
 }

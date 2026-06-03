@@ -22,7 +22,7 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v5
-      - uses: stack4ops/actions-cibuilder@v1
+      - uses: stack4ops/actions-cibuilder-dind@v1
         with:
           run_cmd: all
           bin_ref: main

@@ -25,6 +25,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: write
+      packages: write
     steps:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder@v1

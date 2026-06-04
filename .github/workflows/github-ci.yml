@@ -13,16 +13,55 @@ env:
   CIBUILD_COSIGN_PRIVATE_KEY: ${{ secrets.CIBUILD_COSIGN_PRIVATE_KEY  || '' }}
 
 jobs:
-  all:
-    runs-on: ubuntu-latest
+
+  build:
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: write
-      packages: write
-      actions: write
-      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: stack4ops/actions-cibuilder@v1
+        with:
+          image: ghcr.io/stack4ops/cibuilder:build-buildctl
+          #bin_ref: main
+  
+  test:
+    needs: build
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: read
     steps:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder-dind@v1
         with:
-          run_cmd: all
-          bin_ref: main
+          image: ghcr.io/stack4ops/cibuilder:test-docker
+          #bin_ref: main
+  
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: stack4ops/actions-cibuilder@v1
+        with:
+          image: ghcr.io/stack4ops/cibuilder:release
+          #bin_ref: main

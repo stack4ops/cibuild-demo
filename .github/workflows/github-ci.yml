@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder@v1
         with:
-          image: ghcr.io/stack4ops/cibuilder:build-buildctl@sha256:c9fec7895df5f1705833a1b2d5ebc633b801b44b2a9ee3156feca2922ec87b60
+          image: ghcr.io/stack4ops/cibuilder:build-buildctl@sha256:a3a26124846ebe953b92ef4ea76692e72ecdf72abc7b41bb9b8547a8cc29b67a
           #bin_ref: main
   
   test:

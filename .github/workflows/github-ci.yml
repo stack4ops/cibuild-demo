@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder@v1
         with:
-          image: ghcr.io/stack4ops/cibuilder:build-buildctl
+          image: ghcr.io/stack4ops/cibuilder:build-buildctl@sha256:c9fec7895df5f1705833a1b2d5ebc633b801b44b2a9ee3156feca2922ec87b60
           #bin_ref: main
   
   test:
@@ -41,7 +41,7 @@ jobs:
           - arch: amd64
             runner: ubuntu-latest
           - arch: arm64
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-24.04-arm64
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder-dind@v1
         with:
-          image: ghcr.io/stack4ops/cibuilder:test-docker
+          image: ghcr.io/stack4ops/cibuilder:test-docker@sha256:d866829982b55a15105faece5c0abd6f969d55fcd43ac11bb9cecbf938f3f09f
           #bin_ref: main
   
   release:
@@ -64,5 +64,5 @@ jobs:
       - uses: actions/checkout@v5
       - uses: stack4ops/actions-cibuilder@v1
         with:
-          image: ghcr.io/stack4ops/cibuilder:release
+          image: ghcr.io/stack4ops/cibuilder:release@sha256:1b445bc77dc3f7b0a153eefb2a8ae9b60f610093fbdf48f6c06f50d6fb30e014
           #bin_ref: main

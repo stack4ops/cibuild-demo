@@ -73,7 +73,9 @@ See above and replace `artifact-lock.linux-amd64.json` with `artifact-lock.linux
 
 ### Verification
 
-`cosign verify --certificate-identity-regexp ".*" --certificate-oidc-issuer "https://token.actions.githubusercontent.com" ghcr.io/stack4ops/cibuild-demo:web-workflow`
+```sh
+cosign verify --certificate-identity-regexp ".*" --certificate-oidc-issuer "https://token.actions.githubusercontent.com" ghcr.io/stack4ops/cibuild-demo:web-workflow`
+```
 
 ### Inspect Transparency log entry
 

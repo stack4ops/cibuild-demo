@@ -1,6 +1,6 @@
 ## cibuild-demo
 
-Reference build repo for cibuild libs, see full documentation: 
+Reference build repo for cibuild libs, see full documentation: https://github.com/stack4ops/cibuild
 
 ## Platform image - amd64
 

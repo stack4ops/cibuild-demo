@@ -31,7 +31,7 @@ jobs:
       - uses: stack4ops/actions-cibuilder@v1
         with:
           image: ghcr.io/stack4ops/cibuilder:build-buildctl@sha256:a3a26124846ebe953b92ef4ea76692e72ecdf72abc7b41bb9b8547a8cc29b67a
-          #bin_ref: main
+          bin_ref: main
   
   test:
     needs: build
@@ -51,7 +51,7 @@ jobs:
       - uses: stack4ops/actions-cibuilder-dind@v1
         with:
           image: ghcr.io/stack4ops/cibuilder:test-docker@sha256:d866829982b55a15105faece5c0abd6f969d55fcd43ac11bb9cecbf938f3f09f
-          #bin_ref: main
+          bin_ref: main
   
   release:
     needs: test
@@ -65,4 +65,4 @@ jobs:
       - uses: stack4ops/actions-cibuilder@v1
         with:
           image: ghcr.io/stack4ops/cibuilder:release@sha256:1b445bc77dc3f7b0a153eefb2a8ae9b60f610093fbdf48f6c06f50d6fb30e014
-          #bin_ref: main
+          bin_ref: main

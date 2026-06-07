@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests"
+  ],
+  "configMigration": true,
+  "enabledManagers": ["dockerfile", "regex"],
+  "dockerfile": {
+    "managerFilePatterns": [
+      "/(^|/)Dockerfile[^/]*$/",
+      "/(^|/)Containerfile[^/]*$/"
+    ]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": [
+        "image:\\s+(?<depName>[^@\\s]+):(?<currentTag>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "automerge": false,
+      "labels": ["dependencies", "docker"]
+    }
+  ],
+  "schedule": ["before 6am on Monday"]
+}
